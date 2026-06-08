@@ -21,6 +21,8 @@ start() {
 	ifup lo
 	if [ -n "$dev" ]; then
 		set_wireless
+	elif grep -q "ip=" /proc/cmdline; then
+		echo "eth0 already configured by kernel ip= cmdline; skipping ifup"
 	else
 		ifup eth0
 	fi
